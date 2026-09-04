@@ -1,0 +1,24 @@
+{
+  "name": "book-notes",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A web app to track books I've read, inspired by sive.rs/book",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/H-J-Codes/book-notes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/H-J-Codes/book-notes/issues"
+  },
+  "homepage": "https://github.com/H-J-Codes/book-notes#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
