@@ -10,22 +10,25 @@ const app = express();
 // We choose which "door number" (port) our server listens on
 const port = 3000;
 
+// We tell Express to use EJS as our templating engine
+app.set("view engine", "ejs");
+
 // Here we set up the connection details for our database
-// Think of this like writing down the address and key to unlock our filing cabinet
 const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "booknotes",
-  password: "Mypassword", // put the password you set during Postgres install
+  password: "123456",
   port: 5432,
 });
 
 // This actually opens the connection to our database
 db.connect();
 
-// This says: "when someone visits the homepage (/), send back this message"
+// When someone visits the homepage, we render our index.ejs page
+// and pass it some data to fill in the blanks
 app.get("/", (req, res) => {
-  res.send("Hello! My Book Notes app is working!");
+  res.render("index.ejs", { bookCount: 0 });
 });
 
 // This starts our server and makes it listen for visitors
