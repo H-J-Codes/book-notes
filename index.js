@@ -4,16 +4,17 @@ import express from "express";
 // We bring in "pg" so our app can talk to our PostgreSQL database
 import pg from "pg";
 
-// We create our app - think of this as our actual website/server
-const app = express();
+// This lets us read data sent from HTML forms
+import bodyParser from "body-parser";
 
-// We choose which "door number" (port) our server listens on
+const app = express();
 const port = 3000;
 
-// We tell Express to use EJS as our templating engine
 app.set("view engine", "ejs");
 
-// Here we set up the connection details for our database
+// This tells Express: "understand form data sent from the browser"
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const db = new pg.Client({
   user: "postgres",
   host: "localhost",
@@ -22,16 +23,37 @@ const db = new pg.Client({
   port: 5432,
 });
 
-// This actually opens the connection to our database
 db.connect();
 
-// When someone visits the homepage, we render our index.ejs page
-// and pass it some data to fill in the blanks
+// Homepage - for now we still show a placeholder count
 app.get("/", (req, res) => {
   res.render("index.ejs", { bookCount: 0 });
 });
 
-// This starts our server and makes it listen for visitors
+// This shows our "Add a Book" form page
+app.get("/add", (req, res) => {
+  res.render("add.ejs");
+});
+
+// This runs when the form is submitted - it saves the new book into our database
+app.post("/add", async (req, res) => {
+  // req.body holds everything the user typed into the form
+  const { title, author, isbn, notes, rating, date_read } = req.body;
+
+  try {
+    // This is the actual SQL command that inserts a new row into our books table
+    await db.query(
+      "INSERT INTO books (title, author, isbn, notes, rating, date_read) VALUES ($1, $2, $3, $4, $5, $6)",
+      [title, author, isbn, notes, rating, date_read],
+    );
+    // After saving, send the user back to the homepage
+    res.redirect("/");
+  } catch (err) {
+    console.error("Error adding book:", err);
+    res.send("Something went wrong while adding your book.");
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

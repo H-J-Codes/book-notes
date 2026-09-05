@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/H-J-Codes/book-notes#readme",
   "dependencies": {
+    "body-parser": "^2.3.0",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
     "pg": "^8.23.0"
