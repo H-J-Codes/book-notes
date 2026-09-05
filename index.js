@@ -16,7 +16,7 @@ const db = new pg.Client({
   user: "postgres",
   host: "localhost",
   database: "booknotes",
-  password: "123456", // put the password you set during Postgres install
+  password: "Mypassword", // put the password you set during Postgres install
   port: 5432,
 });
 
