@@ -14,24 +14,27 @@
     <a href="/add">+ Add a New Book</a>
 
     <hr>
-
-    <% books.forEach(function(book) { %>
-        <div>
-            <h2>
-                <%= book.title %>
-            </h2>
-            <p>By <%= book.author %>
-            </p>
-            <p>Rating: <%= book.rating %> / 5</p>
-            <p>Read on: <%= book.date_read.toLocaleDateString() %>
-            </p>
-            <p>
-                <%= book.notes %>
-            </p>
-            <a href="/edit/<%= book.id %>">Edit</a>
-        </div>
-        <hr>
-        <% }); %>
+        <% books.forEach(function(book) { %>
+            <div>
+                <h2>
+                    <%= book.title %>
+                </h2>
+                <p>By <%= book.author %>
+                </p>
+                <p>Rating: <%= book.rating %> / 5</p>
+                <p>Read on: <%= book.date_read.toLocaleDateString() %>
+                </p>
+                <p>
+                    <%= book.notes %>
+                </p>
+                <a href="/edit/<%= book.id %>">Edit</a>
+        
+                <form action="/delete/<%= book.id %>" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+            <hr>
+            <% }); %>
 
 </body>
 

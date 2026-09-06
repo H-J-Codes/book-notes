@@ -97,6 +97,19 @@ app.post("/edit/:id", async (req, res) => {
     res.send("Something went wrong while updating your book.");
   }
 });
+// This runs when the Delete button is clicked - it removes the book from our database
+app.post("/delete/:id", async (req, res) => {
+  const bookId = req.params.id;
+
+  try {
+    // This SQL command removes the row that matches this specific id
+    await db.query("DELETE FROM books WHERE id = $1", [bookId]);
+    res.redirect("/");
+  } catch (err) {
+    console.error("Error deleting book:", err);
+    res.send("Something went wrong while deleting your book.");
+  }
+});
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
