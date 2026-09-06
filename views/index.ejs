@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <title>My Book Notes</title>
+  <meta charset="UTF-8">
+  <title>My Book Notes</title>
 </head>
-
 <body>
-    <h1>📚 My Book Notes</h1>
-    <p>Books I've read: <%= bookCount %>
-    </p>
-</body>
+  <h1>📚 My Book Notes</h1>
+  <p>Books I've read: <%= bookCount %></p>
 
+  <a href="/add">+ Add a New Book</a>
+
+  <hr>
+
+  <% books.forEach(function(book) { %>
+    <div>
+      <h2><%= book.title %></h2>
+      <p>By <%= book.author %></p>
+      <p>Rating: <%= book.rating %> / 5</p>
+      <p>Read on: <%= book.date_read %></p>
+      <p><%= book.notes %></p>
+    </div>
+    <hr>
+  <% }); %>
+
+</body>
 </html>

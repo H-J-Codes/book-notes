@@ -26,10 +26,22 @@ const db = new pg.Client({
 db.connect();
 
 // Homepage - for now we still show a placeholder count
-app.get("/", (req, res) => {
-  res.render("index.ejs", { bookCount: 0 });
-});
+// When someone visits the homepage, get all books from the database and show them
+app.get("/", async (req, res) => {
+  try {
+    // This asks Postgres: "give me every row from the books table"
+    const result = await db.query("SELECT * FROM books");
 
+    // result.rows is a list (array) of all the books we got back
+    const books = result.rows;
+
+    // We send this list of books to our EJS page to display
+    res.render("index.ejs", { books: books, bookCount: books.length });
+  } catch (err) {
+    console.error("Error fetching books:", err);
+    res.send("Something went wrong while loading your books.");
+  }
+});
 // This shows our "Add a Book" form page
 app.get("/add", (req, res) => {
   res.render("add.ejs");
