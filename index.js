@@ -32,13 +32,23 @@ db.connect();
 // When someone visits the homepage, get all books from the database and show them
 app.get("/", async (req, res) => {
   try {
-    // This asks Postgres: "give me every row from the books table"
-    const result = await db.query("SELECT * FROM books");
+    // req.query holds anything after the "?" in the URL, like ?sortBy=rating
+    // If nothing was specified, we default to sorting by title
+    const sortBy = req.query.sortBy || "title";
 
-    // result.rows is a list (array) of all the books we got back
+    // We only allow these exact column names, to stay safe (never trust user input directly in SQL!)
+    const allowedSorts = ["title", "rating", "date_read"];
+    const sortColumn = allowedSorts.includes(sortBy) ? sortBy : "title";
+
+    // Rating and date should show highest/most recent first, title should be alphabetical
+    const sortDirection = sortColumn === "title" ? "ASC" : "DESC";
+
+    const result = await db.query(
+      `SELECT * FROM books ORDER BY ${sortColumn} ${sortDirection}`,
+    );
+
     const books = result.rows;
 
-    // We send this list of books to our EJS page to display
     res.render("index.ejs", { books: books, bookCount: books.length });
   } catch (err) {
     console.error("Error fetching books:", err);
