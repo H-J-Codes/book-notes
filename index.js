@@ -47,6 +47,22 @@ app.get("/add", (req, res) => {
   res.render("add.ejs");
 });
 
+// This shows the edit form for ONE specific book, pre-filled with its current data
+app.get("/edit/:id", async (req, res) => {
+  const bookId = req.params.id;
+
+  try {
+    // Find just the one book whose id matches what's in the URL
+    const result = await db.query("SELECT * FROM books WHERE id = $1", [bookId]);
+    const book = result.rows[0];
+
+    res.render("edit.ejs", { book: book });
+  } catch (err) {
+    console.error("Error fetching book to edit:", err);
+    res.send("Something went wrong.");
+  }
+});
+
 // This runs when the form is submitted - it saves the new book into our database
 app.post("/add", async (req, res) => {
   // req.body holds everything the user typed into the form
@@ -65,7 +81,22 @@ app.post("/add", async (req, res) => {
     res.send("Something went wrong while adding your book.");
   }
 });
+// This runs when the edit form is submitted - it updates the book in our database
+app.post("/edit/:id", async (req, res) => {
+  const bookId = req.params.id;
+  const { title, author, isbn, notes, rating, date_read } = req.body;
 
+  try {
+    await db.query(
+      "UPDATE books SET title = $1, author = $2, isbn = $3, notes = $4, rating = $5, date_read = $6 WHERE id = $7",
+      [title, author, isbn, notes, rating, date_read, bookId]
+    );
+    res.redirect("/");
+  } catch (err) {
+    console.error("Error updating book:", err);
+    res.send("Something went wrong while updating your book.");
+  }
+});
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

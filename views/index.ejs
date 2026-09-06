@@ -21,6 +21,23 @@
       <p><%= book.notes %></p>
     </div>
     <hr>
+    <% books.forEach(function(book) { %>
+        <div>
+            <h2>
+                <%= book.title %>
+            </h2>
+            <p>By <%= book.author %>
+            </p>
+            <p>Rating: <%= book.rating %> / 5</p>
+            <p>Read on: <%= book.date_read %>
+            </p>
+            <p>
+                <%= book.notes %>
+            </p>
+            <a href="/edit/<%= book.id %>">Edit</a>
+        </div>
+        <hr>
+        <% }); %>
   <% }); %>
 
 </body>
