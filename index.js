@@ -7,6 +7,9 @@ import pg from "pg";
 // This lets us read data sent from HTML forms
 import bodyParser from "body-parser";
 
+// We bring in Axios so our server can fetch data from other websites/APIs
+import axios from "axios";
+
 const app = express();
 const port = 3000;
 
@@ -60,6 +63,37 @@ app.get("/edit/:id", async (req, res) => {
   } catch (err) {
     console.error("Error fetching book to edit:", err);
     res.send("Something went wrong.");
+  }
+});
+
+// This route asks the Open Library API for a book cover image, using its ISBN
+app.get("/cover/:isbn", async (req, res) => {
+  const isbn = req.params.isbn;
+
+  try {
+    // We ask Open Library for the cover image matching this ISBN
+    // "?default=false" means: "if you don't have a real cover, tell us it failed instead of sending a blank image"
+    const response = await axios.get(
+      `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg?default=false`,
+      { responseType: "arraybuffer" } // this means "give me the raw image data"
+    );
+
+    // We tell the browser "this is a jpeg image" and send the picture back
+    res.set("Content-Type", "image/jpeg");
+    res.send(response.data);
+
+  } catch (err) {
+    // If Open Library doesn't have a cover for this ISBN, we end up here instead
+    console.error("No cover found for ISBN:", isbn);
+
+    // We build a simple grey placeholder image ourselves, so the page still looks okay
+    res.set("Content-Type", "image/svg+xml");
+    res.send(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="300">
+        <rect width="100%" height="100%" fill="#ddd"/>
+        <text x="50%" y="50%" font-size="16" text-anchor="middle" fill="#555">No Cover</text>
+      </svg>
+    `);
   }
 });
 

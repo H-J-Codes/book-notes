@@ -16,6 +16,7 @@
     <hr>
         <% books.forEach(function(book) { %>
             <div>
+                <img src="/cover/<%= book.isbn %>" alt="<%= book.title %> cover" width="120">
                 <h2>
                     <%= book.title %>
                 </h2>
