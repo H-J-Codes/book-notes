@@ -1,0 +1,137 @@
+/* This sets the overall look for the whole page */
+body {
+    font-family: Georgia, serif;
+    background-color: #faf7f2;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Styling for our main heading */
+h1 {
+    color: #4a3728;
+    border-bottom: 3px solid #4a3728;
+    padding-bottom: 10px;
+}
+
+/* This styles each individual book as a card */
+.book-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Styling for the book cover image */
+.book-card img {
+    border-radius: 4px;
+    height: 150px;
+}
+
+/* This lets the text sit nicely next to the image */
+.book-info {
+    flex: 1;
+}
+
+.book-info h2 {
+    margin-top: 0;
+    color: #4a3728;
+}
+
+/* A nice pill-shaped rating badge */
+.rating {
+    display: inline-block;
+    background-color: #f0e6d6;
+    color: #4a3728;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Styling for our sort links and add button */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.top-bar a {
+    color: #4a3728;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.top-bar a:hover {
+    text-decoration: underline;
+}
+
+/* Styling our Edit and Delete buttons */
+.actions {
+    margin-top: 10px;
+}
+
+.actions a,
+.actions button {
+    background-color: #4a3728;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.actions a:hover,
+.actions button:hover {
+    background-color: #6b5540;
+}
+
+/* Styling our forms (Add/Edit pages) */
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    max-width: 500px;
+}
+
+form label {
+    font-weight: bold;
+    display: block;
+    margin-top: 12px;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+form button {
+    margin-top: 15px;
+    background-color: #4a3728;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+form button:hover {
+    background-color: #6b5540;
+}

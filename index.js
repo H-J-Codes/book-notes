@@ -17,6 +17,8 @@ app.set("view engine", "ejs");
 
 // This tells Express: "understand form data sent from the browser"
 app.use(bodyParser.urlencoded({ extended: true }));
+// This tells Express: "anything inside the public folder can be accessed directly by the browser"
+app.use(express.static("public"));
 
 const db = new pg.Client({
   user: "postgres",

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>My Book Notes</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -11,40 +12,40 @@
     <p>Books I've read: <%= bookCount %>
     </p>
 
-    <a href="/add">+ Add a New Book</a>
-    
-    <p>
-        Sort by:
-        <a href="/?sortBy=title">Title</a> |
-        <a href="/?sortBy=rating">Rating</a> |
-        <a href="/?sortBy=date_read">Recency</a>
-    </p>
-    
-    <hr>
+    <div class="top-bar">
+        <a href="/add">+ Add a New Book</a>
+        <p>
+            Sort by:
+            <a href="/?sortBy=title">Title</a> |
+            <a href="/?sortBy=rating">Rating</a> |
+            <a href="/?sortBy=date_read">Recency</a>
+        </p>
+    </div>
 
-    <hr>
-        <% books.forEach(function(book) { %>
-            <div>
-                <img src="/cover/<%= book.isbn %>" alt="<%= book.title %> cover" width="120">
+    <% books.forEach(function(book) { %>
+        <div class="book-card">
+            <img src="/cover/<%= book.isbn %>" alt="<%= book.title %> cover">
+            <div class="book-info">
                 <h2>
                     <%= book.title %>
                 </h2>
                 <p>By <%= book.author %>
                 </p>
-                <p>Rating: <%= book.rating %> / 5</p>
+                <span class="rating">⭐ <%= book.rating %> / 5</span>
                 <p>Read on: <%= book.date_read.toLocaleDateString() %>
                 </p>
                 <p>
                     <%= book.notes %>
                 </p>
-                <a href="/edit/<%= book.id %>">Edit</a>
-        
-                <form action="/delete/<%= book.id %>" method="POST" style="display:inline;">
-                    <button type="submit">Delete</button>
-                </form>
+                <div class="actions">
+                    <a href="/edit/<%= book.id %>">Edit</a>
+                    <form action="/delete/<%= book.id %>" method="POST" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
             </div>
-            <hr>
-            <% }); %>
+        </div>
+        <% }); %>
 
 </body>
 
