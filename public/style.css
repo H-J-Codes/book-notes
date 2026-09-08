@@ -211,3 +211,14 @@ body>p {
 .book-form button:hover {
     background-color: #6b5540;
 }
+.actions-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #4a3728;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.actions-link:hover {
+    text-decoration: underline;
+}
