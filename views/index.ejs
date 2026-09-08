@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>My Book Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="/style.css">
 </head>
 
@@ -39,7 +40,7 @@
                 </p>
                 <div class="actions">
                     <a href="/edit/<%= book.id %>">Edit</a>
-                    <form action="/delete/<%= book.id %>" method="POST" style="display:inline;">
+                    <form action="/delete/<%= book.id %>" method="POST">
                         <button type="submit">Delete</button>
                     </form>
                 </div>

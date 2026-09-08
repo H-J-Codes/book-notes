@@ -1,137 +1,213 @@
-/* This sets the overall look for the whole page */
+/* We import two nice fonts from Google Fonts - one fancy one for headings, one easy-to-read one for body text */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:wght@400;500&display=swap');
+
 body {
-    font-family: Georgia, serif;
-    background-color: #faf7f2;
-    color: #333;
-    max-width: 800px;
+    font-family: 'Lora', serif;
+    color: #3b2f24;
+    max-width: 850px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 30px 20px;
+
+    background-color: #ede2d0;
+
+    /* This layers a semi-transparent cream color OVER our library photo,
+       so the photo shows through softly but stays faint enough not to distract from reading */
+    background-image:
+        linear-gradient(rgba(237, 226, 208, 0.88), rgba(237, 226, 208, 0.5)),
+        url("/library-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
 }
 
-/* Styling for our main heading */
+/* Our main heading, styled like a book title on a cover */
 h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
     color: #4a3728;
-    border-bottom: 3px solid #4a3728;
-    padding-bottom: 10px;
+    text-align: center;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
 }
 
-/* This styles each individual book as a card */
-.book-card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-/* Styling for the book cover image */
-.book-card img {
-    border-radius: 4px;
-    height: 150px;
-}
-
-/* This lets the text sit nicely next to the image */
-.book-info {
-    flex: 1;
-}
-
-.book-info h2 {
+/* A little decorative line under the heading, like a bookmark ribbon */
+body>p {
+    text-align: center;
+    color: #7a6a55;
+    font-style: italic;
     margin-top: 0;
-    color: #4a3728;
+    margin-bottom: 25px;
 }
 
-/* A nice pill-shaped rating badge */
-.rating {
-    display: inline-block;
-    background-color: #f0e6d6;
-    color: #4a3728;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-/* Styling for our sort links and add button */
 .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(139, 105, 60, 0.2);
 }
 
 .top-bar a {
     color: #4a3728;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .top-bar a:hover {
     text-decoration: underline;
 }
 
-/* Styling our Edit and Delete buttons */
+/* Each book card - now with a hover "lift" effect so it feels alive */
+.book-card {
+    background-color: #fffdf8;
+    border: 1px solid rgba(139, 105, 60, 0.2);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 22px;
+    display: flex;
+    gap: 18px;
+    box-shadow: 0 3px 8px rgba(74, 55, 40, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* When you hover over a book, it gently lifts up - feels more interactive */
+.book-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(74, 55, 40, 0.15);
+}
+
+.book-card img {
+    border-radius: 5px;
+    height: 160px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.book-info {
+    flex: 1;
+}
+
+.book-info h2 {
+    font-family: 'Playfair Display', serif;
+    margin-top: 0;
+    margin-bottom: 6px;
+    color: #4a3728;
+}
+
+.rating {
+    display: inline-block;
+    background-color: #f0e6d6;
+    color: #8a5a00;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+/* Buttons row */
 .actions {
-    margin-top: 10px;
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Reset the tiny delete form so it doesn't add any extra spacing/border/shadow */
+.actions form {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    max-width: none;
+    display: inline;
+    box-shadow: none;
+    border-radius: 0;
 }
 
 .actions a,
 .actions button {
-    background-color: #4a3728;
-    color: white;
+    display: inline-block;
     border: none;
-    padding: 6px 14px;
-    border-radius: 4px;
+    padding: 8px 18px;
+    margin: 0;
+    border-radius: 5px;
     text-decoration: none;
     font-size: 14px;
+    font-family: 'Lora', serif;
     cursor: pointer;
-    margin-right: 8px;
+    transition: background-color 0.2s ease;
+    line-height: 1.2;
+    box-sizing: border-box;
+    min-width: 70px;
+    text-align: center;
 }
 
-.actions a:hover,
-.actions button:hover {
+/* Edit button - warm brown, matches our theme */
+.actions a {
+    background-color: #4a3728;
+    color: white;
+}
+
+.actions a:hover {
     background-color: #6b5540;
 }
 
-/* Styling our forms (Add/Edit pages) */
-form {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
+/* Delete button - red, so it clearly signals "careful, this removes something" */
+.actions button {
+    background-color: #b33a3a;
+    color: white;
+}
+
+.actions button:hover {
+    background-color: #8f2d2d;
+}
+
+/* Forms (Add/Edit pages) - uses .book-form class so it NEVER clashes with our tiny delete button/form */
+.book-form {
+    background-color: #fffdf8;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid rgba(139, 105, 60, 0.2);
     max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 3px 8px rgba(74, 55, 40, 0.08);
 }
 
-form label {
-    font-weight: bold;
+.book-form label {
+    font-weight: 600;
     display: block;
-    margin-top: 12px;
+    margin-top: 14px;
+    color: #4a3728;
 }
 
-form input,
-form textarea {
+.book-form input,
+.book-form textarea {
     width: 100%;
-    padding: 8px;
+    padding: 9px;
     margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #d3c4ac;
+    border-radius: 5px;
     box-sizing: border-box;
-    font-family: inherit;
+    font-family: 'Lora', serif;
 }
 
-form button {
-    margin-top: 15px;
+.book-form button {
+    margin-top: 18px;
     background-color: #4a3728;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
+    padding: 10px 24px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 15px;
+    font-family: 'Lora', serif;
 }
 
-form button:hover {
+.book-form button:hover {
     background-color: #6b5540;
 }

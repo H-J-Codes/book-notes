@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Book</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
     <h1>Edit Book</h1>
 
-    <form action="/edit/<%= book.id %>" method="POST">
+    <form action="/edit/<%= book.id %>" method="POST" class="book-form">
         <label>Title:</label><br>
         <input type="text" name="title" value="<%= book.title %>" required><br><br>
 
