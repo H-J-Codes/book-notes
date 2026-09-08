@@ -1,13 +1,10 @@
-// We bring in the Express toolkit so we can build our web server
+// This loads our secret values from the .env file
+import "dotenv/config";
+
+// We bring in Express, pg, etc as before
 import express from "express";
-
-// We bring in "pg" so our app can talk to our PostgreSQL database
 import pg from "pg";
-
-// This lets us read data sent from HTML forms
 import bodyParser from "body-parser";
-
-// We bring in Axios so our server can fetch data from other websites/APIs
 import axios from "axios";
 
 const app = express();
@@ -17,12 +14,13 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+// Now we read our connection details from .env instead of writing them directly here
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "booknotes",
-  password: "123456",
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
 db.connect();
